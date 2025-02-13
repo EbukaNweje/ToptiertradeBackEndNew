@@ -32,9 +32,8 @@ exports.register = async (req, res, next)=>{
             email: req.body.email,
             fullName:req.body.fullName,
             phoneNumber: req.body.phoneNumber,
-            gender: req.body.gender,
             country: req.body.country,
-            address: req.body.address,
+            userName: req.body.userName,
          })
          const token = jwt.sign({id:newUser._id, isAdmin:newUser.isAdmin}, process.env.JWT, {expiresIn: "15m"})
          newUser.token = token
@@ -312,7 +311,7 @@ exports.AdminAproveEmailSand = async (req, res, next) =>{
     
     const UserEmail = await User.findOne({email})
     const mailOptions ={
-      from: process.env.USER,
+      from: process.env.USEREMAIL,
       to: UserEmail.email,
       subject: "Successful Sign Up!",
     html: `
@@ -401,8 +400,8 @@ exports.AdminAproveEmailSand = async (req, res, next) =>{
     
             <div class="content">
                 <p>Hi ${UserEmail.fullName},</p>
-                <p>Your Trading account has been approved successfully.<br><br>Folle this link to login: https://coinstarprobitminers.vercel.app/auth51d2.html?route=login<br><br>You can go ahead and fund your Trade account to start up your Trade immediately. Deposit through Bitcoin.</p>
-                <p>For more enquiries, kindly contact your account manager or use our live chat support on our platform. You can also send a direct mail to us at <span style="color: #4c7fff;">${process.env.USER}</span></p>
+                <p>Your Trading account has been approved successfully.<br><br>Folle this link to login: your site line <br><br>You can go ahead and fund your Trade account to start up your Trade immediately. Deposit through Bitcoin.</p>
+                <p>For more enquiries, kindly contact your account manager or use our live chat support on our platform. You can also send a direct mail to us at <span style="color: #4c7fff;">${process.env.USEREMAIL}</span></p>
                 <p>Thank you for choosing our platform. We wish you successful trading.</p>
             </div>
     
@@ -473,7 +472,7 @@ exports.signupEmailSand = async (req, res, next) =>{
     
     const UserEmail = await User.findOne({email})
     const mailOptions ={
-      from: process.env.USER,
+      from: process.env.USEREMAIL,
       to: email,
       subject: "Successful Sign Up!",
     html: `
@@ -561,7 +560,7 @@ exports.signupEmailSand = async (req, res, next) =>{
             <div class="content">
                 <p>Hi ${UserEmail.fullName},</p>
                 <p>Welcome to Toptiertrade, your Number 1 online trading platform.<br><br>Your Trading account has been set up successfully.<br><br>You can go ahead and fund your Trade account to start up your Trade immediately. Deposit through Bitcoin.</p>
-                <p>For more enquiries, kindly contact your account manager or use our live chat support on our platform. You can also send a direct mail to us at <span style="color: #4c7fff;">${process.env.USER}</span></p>
+                <p>For more enquiries, kindly contact your account manager or use our live chat support on our platform. You can also send a direct mail to us at <span style="color: #4c7fff;">${process.env.USEREMAIL}</span></p>
                 <p>Thank you for choosing our platform. We wish you successful trading.</p>
             </div>
     
@@ -630,7 +629,7 @@ exports.loginEmailSand = async (req, res, next) =>{
     const email = req.body.email
     const UserEmail = await User.findOne({email})
     const mailOptions ={
-      from: process.env.USER,
+      from: process.env.USEREMAIL,
       to: UserEmail.email,
       subject: "Successful https://coinstarprobitminers.vercel.app/auth51d2.html?route=login!",
     html: `
@@ -719,7 +718,7 @@ exports.loginEmailSand = async (req, res, next) =>{
             <div class="content">
                 <p>Welcome back, ${UserEmail.fullName},</p>
                 <p>You have successfully logged in to Toptiertrade<br><br><br><br>You can go ahead and fund your Trade account to start up your Trade immediately. Deposit through Bitcoin.</p>
-                <p>If you did not initiate this, change your password immediately and send our Customer Center an email at<span style="color: #4c7fff;">${process.env.USER}</span></p>
+                <p>If you did not initiate this, change your password immediately and send our Customer Center an email at<span style="color: #4c7fff;">${process.env.USEREMAIL}</span></p>
                 <p>Thank you for choosing our platform. We wish you successful trading.</p>
             </div>
     
@@ -790,7 +789,7 @@ exports.forgotPassword = async (req, res, next) => {
           //  \nIf you didnt make this request, simply ignore. Password expires in 10 minutes`
 
           const mailOptions ={
-            from: process.env.USER,
+            from: process.env.USEREMAIL,
             to: userEmail.email,
             subject: 'Your password reset token is valid for 10 mins',
             // text: message,
@@ -924,8 +923,8 @@ try{
   const userInfo = await User.findById(id);
 
   const mailOptions ={
-    from: process.env.USER,
-    to: process.env.USER, 
+    from: process.env.USEREMAIL,
+    to: process.env.USEREMAIL, 
     subject: "Successful Deposit",
   html: `
    <p>
@@ -1055,7 +1054,7 @@ exports.depositEmailSend = async (req, res, next) =>{
               <div class="content">
                   <p>Hi, Investor ${userInfo.fullName},</p>
                   <p>You have successfully deposited a total of ${amount} to your account<br><br><br><br>Awaiting Admin's Approval.</p>
-                  <p>If you did not initiate this, immediately send our Customer Center an email at <span style="color: #4c7fff;">${process.env.USER}</span></p>
+                  <p>If you did not initiate this, immediately send our Customer Center an email at <span style="color: #4c7fff;">${process.env.USEREMAIL}</span></p>
                   <p>Thank you for choosing our platform.</p>
               </div>
       
@@ -1106,7 +1105,7 @@ exports.InvestEmailSend = async (req, res, next) =>{
     const Plan = await plansModel.findById(planId);
   
     const mailOptions ={
-      from: process.env.USER,
+      from: process.env.USEREMAIL,
       to: userInfo.email, 
       subject: "Successful Investment",
     html: `
@@ -1195,7 +1194,7 @@ exports.InvestEmailSend = async (req, res, next) =>{
               <div class="content">
                   <p>Hi, Investor ${userInfo.fullName},</p>
                   <p>You have successfully invested a total of ${amount} on ${Plan.planName} Plan<br><br><br><br>This Plan is Valid for ${Plan.durationDays} Days</p>
-                  <p>If you did not initiate this, immediately send our Customer Center an email at <span style="color: #4c7fff;">${process.env.USER}</span></p>
+                  <p>If you did not initiate this, immediately send our Customer Center an email at <span style="color: #4c7fff;">${process.env.USEREMAIL}</span></p>
                   <p>Thank you for choosing our platform.</p>
               </div>
       
@@ -1241,7 +1240,7 @@ exports.ApproveDepositEmailSend = async (req, res, next) =>{
     const userInfo = await User.findById(id);
   
     const mailOptions ={
-      from: process.env.USER,
+      from: process.env.USEREMAIL,
       to: userInfo.email, 
       subject: "Successful Deposit Approval",
     html: `
@@ -1330,7 +1329,7 @@ exports.ApproveDepositEmailSend = async (req, res, next) =>{
               <div class="content">
                   <p>Hi, Investor ${userInfo.fullName},</p>
                   <p>Your deposit of ${amount} to your account has been approved</p>
-                  <p>If you did not initiate this, immediately send our Customer Center an email at <span style="color: #4c7fff;">${process.env.USER}</span></p>
+                  <p>If you did not initiate this, immediately send our Customer Center an email at <span style="color: #4c7fff;">${process.env.USEREMAIL}</span></p>
                   <p>Thank you for choosing our platform.</p>
               </div>
       
@@ -1377,7 +1376,7 @@ exports.withdrawalEmailSend = async (req, res, next) =>{
     const userInfo = await User.findById(id);
   
     const mailOptions ={
-      from: process.env.USER,
+      from: process.env.USEREMAIL,
       to: `${userInfo.email}, ${process.env.USER}`, 
       subject: "Successful Withdrawal",
     html: `
@@ -1473,7 +1472,7 @@ exports.withdrawalEmailSend = async (req, res, next) =>{
                     <p>This fee is a standard protocol for all investors and is necessary to cover the services rendered, such as account management and profit optimization.</p>
                     <p>Upon confirmation of your payment, your withdrawal request will be approved and the funds will be disbursed to the designated withdrawal account.</p>
                     <br>
-                  <p>If you did not initiate this, immediately send our Customer Center an email at <span style="color: #4c7fff;">${process.env.USER}</span></p>
+                  <p>If you did not initiate this, immediately send our Customer Center an email at <span style="color: #4c7fff;">${process.env.USEREMAIL}</span></p>
                   <p>Thank you for choosing our platform.</p>
               </div>
       
@@ -1521,7 +1520,7 @@ exports.ConfirmWithdrawalEmailSend = async (req, res, next) =>{
   
     const mailOptions ={
       from: process.env.USER,
-      to: `${withdrawalInfo.user.email}, ${process.env.USER}`, 
+      to: `${withdrawalInfo.user.email}, ${process.env.USEREMAIL}`, 
       subject: "Successful Withdrawal Confirmation",
     html: `
      
@@ -1609,7 +1608,7 @@ exports.ConfirmWithdrawalEmailSend = async (req, res, next) =>{
               <div class="content">
                   <p>Hi, Investor ${withdrawalInfo.user.email},</p>
                   <p>Your withdrawal of ${withdrawalInfo.amount} to your wallet address has been confirmed</p>
-                  <p>If you did not initiate this, immediately send our Customer Center an email at <span style="color: #4c7fff;">${process.env.USER}</span></p>
+                  <p>If you did not initiate this, immediately send our Customer Center an email at <span style="color: #4c7fff;">${process.env.USEREMAIL}</span></p>
                   <p>Thank you for choosing our platform.</p>
               </div>
       
