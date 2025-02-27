@@ -399,10 +399,13 @@ exports.AdminAproveEmailSand = async (req, res, next) =>{
             </div>
     
             <div class="content">
-                <p>Hi ${UserEmail.fullName},</p>
-                <p>Your Trading account has been approved successfully.<br><br>Folle this link to login: your site line <br><br>You can go ahead and fund your Trade account to start up your Trade immediately. Deposit through Bitcoin.</p>
-                <p>For more enquiries, kindly contact your account manager or use our live chat support on our platform. You can also send a direct mail to us at <span style="color: #4c7fff;">${process.env.USEREMAIL}</span></p>
-                <p>Thank you for choosing our platform. We wish you successful trading.</p>
+                <p>Dear Trader,</p>
+                <p>We are pleased to inform you that your trading account has been successfully approved.
+                    <br> Please use the following link to log in:
+                    <br>You may now fund your trading account to commence your trading activities. Deposits can be made using Bitcoin.
+                </p>
+                <p>For any inquiries, please reach out to our live chat support available on our platform, or you can send us an email directly at <span style="color: #4c7fff;">${process.env.USEREMAIL}</span></p>
+                <p>Thank you for selecting our platform. We wish you great success in your trading endeavors.</p>
             </div>
     
             <div class="footer">
